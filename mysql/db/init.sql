@@ -14,4 +14,4 @@ CREATE TABLE users (
   primary key (id)
 )DEFAULT CHARACTER SET=utf8;
 
-INSERT INTO users (name) VALUES ("太郎"),("花子"),("令和");
+INSERT INTO users (name, accepted_count) VALUES ("太郎",3),("花子",34),("令和",324);

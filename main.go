@@ -15,15 +15,18 @@ func main() {
 	}
 	defer db.Close()
 
+
+	fmt.Printf("%#v\n",db)
+	
 	userEx := Users{}
 
-	userEx.name = "Toilet"
-	userEx.accepted_count = 123
-	userEx.accepted_count_rank = 12
-	userEx.rated_point_sum = 34
-	userEx.rated_point_sum_rank = 12
-	userEx.created_time = getDate()
-	userEx.updated_time = getDate()
+	userEx.Name = "Toilet"
+	userEx.AcceptedCount = 123
+	userEx.AcceptedCountRank = 12
+	userEx.RatedPointSum = 34
+	userEx.RatedPointSumRank = 12
+	userEx.CreatedTime = getDate()
+	userEx.UpdatedTime = getDate()
 
 	// INSERTを実行
   db.Create(&userEx)	
@@ -50,17 +53,18 @@ func main() {
 
 	//全取得
 	db.Find(&users)
-
+	print(users)
 	//表示
 	for _, user := range users {
-		fmt.Println(user.id)
-		fmt.Println(user.name)
-		fmt.Println(user.accepted_count)
-		fmt.Println(user.accepted_count_rank)
-		fmt.Println(user.rated_point_sum)
-		fmt.Println(user.rated_point_sum_rank)
-		fmt.Println(user.created_time)
-		fmt.Println(user.updated_time)
+		fmt.Printf("%#v\n",user)
+		fmt.Printf("%#v\n",user.Id)
+		fmt.Printf("%#v\n",user.Name)
+		fmt.Printf("%#v\n",user.AcceptedCount)
+		fmt.Printf("%#v\n",user.AcceptedCountRank)
+		fmt.Printf("%#v\n",user.RatedPointSum)
+		fmt.Printf("%#v\n",user.RatedPointSumRank)
+		fmt.Printf("%#v\n",user.CreatedTime)
+		fmt.Printf("%#v\n",user.UpdatedTime)
 	}
 }
 
@@ -85,12 +89,12 @@ func sqlConnect() (database *gorm.DB, err error) {
 
 // Users ユーザー情報のテーブル情報
 type Users struct {
-	id                   int
-	name                 string    `json:"name"`
-	accepted_count       int       `json:"accepted_count"`
-	accepted_count_rank  int       `json:"accepted_count_rank"`
-	rated_point_sum      int       `json:"rated_point_sum"`
-	rated_point_sum_rank int       `json:"rated_point_sum_rank"`
-	created_time         string    `json:"created_time" sql:"not null;type:date"`
-	updated_time         string    `json:"updated_time" sql:"not null;type:date"`
+	Id                   int
+	Name                 string    `gorm:"column:name"`
+	AcceptedCount       int       `gorm:"column:accepted_count"`
+	AcceptedCountRank  int       `gorm:"column:accepted_count_rank"`
+	RatedPointSum      int       `gorm:"column:rated_point_sum"`
+	RatedPointSumRank int       `gorm:"column:rated_point_sum_rank"`
+	CreatedTime         string    `gorm:"column:created_time" sql:"not null;type:date"`
+	UpdatedTime         string    `gorm:"column:updated_time" sql:"not null;type:date"`
 }
