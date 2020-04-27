@@ -14,7 +14,20 @@ func main() {
 		panic(err.Error())
 	}
 	defer db.Close()
-	
+
+	userEx := Users{}
+
+	userEx.name = "Toilet"
+	userEx.accepted_count = 123
+	userEx.accepted_count_rank = 12
+	userEx.rated_point_sum = 34
+	userEx.rated_point_sum_rank = 12
+	userEx.created_time = getDate()
+	userEx.updated_time = getDate()
+
+	// INSERTを実行
+  db.Create(&userEx)	
+/*	
 	error := db.Create(&Users{
 								name: "Toilet",
 								accepted_count: 123,
@@ -30,6 +43,7 @@ func main() {
     } else {
         fmt.Println("データ追加成功")
    }
+*/
 
 	//データを格納する変数を定義
 	users := []Users{}
@@ -48,7 +62,6 @@ func main() {
 		fmt.Println(user.created_time)
 		fmt.Println(user.updated_time)
 	}
-
 }
 
 
@@ -78,6 +91,6 @@ type Users struct {
 	accepted_count_rank  int       `json:"accepted_count_rank"`
 	rated_point_sum      int       `json:"rated_point_sum"`
 	rated_point_sum_rank int       `json:"rated_point_sum_rank"`
-	created_time         time.Time `json:"created_time" sql:"not null;type:date"`
-	updated_time         time.Time `json:"updated_time" sql:"not null;type:date"`
+	created_time         string    `json:"created_time" sql:"not null;type:date"`
+	updated_time         string    `json:"updated_time" sql:"not null;type:date"`
 }
